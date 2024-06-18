@@ -5,17 +5,19 @@ import com.wallace.notificationservice.service.NotificationSnsService;
 import com.wallace.notificationservice.utils.ConstantMessages;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
 public class PendingProposalListener {
 
-    private final NotificationSnsService notificationSnsService;
+    private NotificationSnsService notificationSnsService;
 
     @RabbitListener(queues = "${rabbitmq.queue.pending.proposal}")
-    public void PendingProposal(Proposal proposal) {
+    public void pendingProposal(@Payload Proposal proposal) {
         String message = String.format(ConstantMessages.PROPOSAL_UNDER_ANALYSIS, proposal.getUser().getName());
-        notificationSnsService.notify(message);
+        notificationSnsService.notify(proposal.getUser().getPhoneNumber(), message);
     }
 }
