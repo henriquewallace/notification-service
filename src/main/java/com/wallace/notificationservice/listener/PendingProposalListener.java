@@ -5,7 +5,6 @@ import com.wallace.notificationservice.service.NotificationSnsService;
 import com.wallace.notificationservice.utils.ConstantMessages;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
